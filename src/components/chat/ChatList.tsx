@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import ChatCard from "./ChatCard";
 import styled from "styled-components";
-import { useStore } from "../../hooks/useStore";
 
 import { useChats } from "../../hooks/useChats";
 import { useGroups } from "../../hooks/useGroups";
@@ -30,10 +29,7 @@ const ChatList: FC<ChatListProps> = () => {
   //const [chats, setChats] = useState<IChat[]>([]);
   const { chats } = useChats();
   const { groups } = useGroups();
-  const { user, isUserActive } = useStore();
 
-  console.log(chats, "from useChats");
-  console.log(groups, "from useGroups");
   return (
     <List>
       {chats.map((chat) => (

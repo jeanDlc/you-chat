@@ -29,6 +29,7 @@ html {
   img{
     max-width: 100%;
   }
+ 
   input:focus{
     outline: none;
   }

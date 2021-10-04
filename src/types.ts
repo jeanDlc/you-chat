@@ -19,3 +19,9 @@ export interface IUser {
   chats: Object;
   id: string;
 }
+export interface IMessage {
+  idUser: string;
+  name: string;
+  text: string;
+  timestamp: Timestamp;
+}
