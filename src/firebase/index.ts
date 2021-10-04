@@ -18,6 +18,7 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  where,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -29,4 +30,4 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getPerformance } from "firebase/performance";
 import { firebaseConfig } from "./config";
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);

@@ -1,11 +1,14 @@
 import { GlobalStyle } from "./styles/global";
 import { Container } from "./styles/utils";
 import ChatContainer from "./components/chat/ChatContainer";
+import { Store } from "./store";
 function App() {
   return (
     <Container>
       <GlobalStyle />
-      <ChatContainer />
+      <Store>
+        <ChatContainer />
+      </Store>
     </Container>
   );
 }
