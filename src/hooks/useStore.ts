@@ -3,12 +3,14 @@ import { context } from "../store";
 export const useStore = () => {
   const {
     setUser,
-    state: { user, isUserActive, currentChatId },
+    setCurrentChat,
+    state: { user, isUserActive, currentChat },
   } = useContext(context);
   return {
     setUser,
     user,
     isUserActive,
-    currentChatId,
+    currentChat,
+    setCurrentChat,
   };
 };

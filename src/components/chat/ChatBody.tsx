@@ -39,11 +39,11 @@ const Footer = styled.footer`
 `;
 
 const ChatBody: FC<ChatBodyProps> = ({}) => {
-  const idChat = "wjcJaSuMFbWMky01k17U";
-  const { messages, sendNewMessage } = useMessages(idChat);
+  const { user, currentChat } = useStore();
+  const { messages, sendNewMessage } = useMessages(currentChat.id);
   const [text, setText] = useState<string>("");
   const body = useRef<HTMLElement>(null);
-  const { user } = useStore();
+
   function scrollDown() {
     if (body.current) {
       body.current.scrollTop = body.current.scrollHeight;
@@ -62,7 +62,7 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
         text,
         timestamp: Timestamp.fromDate(new Date()),
       },
-      idChat
+      currentChat.id
     );
     setText("");
   };
@@ -84,7 +84,6 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
           <input
             onChange={(e) => setText(e.target.value)}
             value={text}
-            type="text"
             placeholder="Escribe algo..."
           />
         </form>

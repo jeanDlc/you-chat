@@ -1,16 +1,6 @@
 import { useStore } from "./useStore";
 import { useState, useEffect } from "react";
-import {
-  where,
-  query,
-  collection,
-  onSnapshot,
-  arrayUnion,
-  doc,
-  orderBy,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { onSnapshot, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { IMessage } from "../types";
 import { db } from "../firebase";
 export const useMessages = (idChat: string) => {
@@ -18,17 +8,24 @@ export const useMessages = (idChat: string) => {
   const { isUserActive } = useStore();
   const collectionName = "messages";
   useEffect(() => {
-    if (!isUserActive) return;
+    if (!isUserActive || idChat === "") return;
     //listen changes in the chat
     const ref = doc(db, collectionName, idChat);
 
-    const unsub = onSnapshot(ref, (doc) => {
-      //const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      const listMessages = doc.data()?.messages as IMessage[];
-      setMessages(listMessages);
-    });
+    const unsub = onSnapshot(
+      ref,
+      (doc) => {
+        //const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        const listMessages = doc.data()?.messages as IMessage[];
+        console.log("messages", doc.data());
+        listMessages && setMessages(listMessages);
+      },
+      (onerror = () => {
+        console.log("error puess");
+      })
+    );
     return () => unsub();
-  }, [isUserActive]);
+  }, [isUserActive, idChat]);
   const sendNewMessage = async (msg: IMessage, idChat: string) => {
     //create a new message
     if (msg.text.trim() === "") return;

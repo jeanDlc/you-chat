@@ -1,5 +1,5 @@
 import { Timestamp } from "@firebase/firestore";
-
+export type TypeChat = "private" | "group";
 export interface IChat {
   id: string;
   lastMessage: string;

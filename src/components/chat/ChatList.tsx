@@ -34,6 +34,8 @@ const ChatList: FC<ChatListProps> = () => {
     <List>
       {chats.map((chat) => (
         <ChatCard
+          idChat={chat.id}
+          type="private"
           key={chat.id}
           name={chat.members[1]}
           lastMessage={chat.lastMessage}
@@ -42,6 +44,8 @@ const ChatList: FC<ChatListProps> = () => {
       ))}
       {groups.map((group) => (
         <ChatCard
+          idChat={group.id}
+          type="group"
           key={group.id}
           name={group.name}
           lastMessage={group.lastMessage}

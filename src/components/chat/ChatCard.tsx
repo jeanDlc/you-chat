@@ -1,19 +1,28 @@
 import { Timestamp } from "@firebase/firestore";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styled from "styled-components";
 import { myTheme } from "../../styles/my-theme";
 import ImgUser from "../ImgUser";
+import { TypeChat } from "../../types";
+import { useStore } from "../../hooks/useStore";
 const {
   colors: { gray2 },
 } = myTheme;
+
 interface ChatCardProps {
+  type: TypeChat;
   name: string;
   lastMessage: string;
   timestamp: Timestamp;
+  idChat: string;
 }
-const Card = styled.section`
+interface CardStyledProps {
+  active: boolean;
+}
+const Card = styled.section<CardStyledProps>`
+  background-color: ${(props) =>
+    props.active ? "rgba(0, 0, 0, 0.05)" : "white"};
   padding: 1rem;
-  background-color: white;
   color: ${gray2};
   cursor: pointer;
   display: flex;
@@ -36,10 +45,22 @@ const Time = styled.p`
   opacity: 0.7;
   font-size: 0.7rem;
 `;
-const ChatCard: FC<ChatCardProps> = ({ lastMessage, name, timestamp }) => {
+
+const ChatCard: FC<ChatCardProps> = ({
+  lastMessage,
+  name,
+  timestamp,
+  type,
+  idChat,
+}) => {
   const date = timestamp.toDate().toLocaleDateString();
+  const { setCurrentChat, currentChat } = useStore();
+
   return (
-    <Card>
+    <Card
+      active={currentChat.id === idChat}
+      onClick={() => setCurrentChat(type, idChat)}
+    >
       <ImgUser />
       <div>
         <NameUser> {name} </NameUser>
