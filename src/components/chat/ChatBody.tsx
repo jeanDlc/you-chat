@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FC, FormEventHandler, useState, useEffect, useRef } from "react";
 import TextMessage from "../TextMessage";
 import styled from "styled-components";
 import { useMessages } from "../../hooks/useMessages";
@@ -42,8 +42,17 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
   const idChat = "wjcJaSuMFbWMky01k17U";
   const { messages, sendNewMessage } = useMessages(idChat);
   const [text, setText] = useState<string>("");
+  const body = useRef<HTMLElement>(null);
   const { user } = useStore();
+  function scrollDown() {
+    if (body.current) {
+      body.current.scrollTop = body.current.scrollHeight;
+    }
+  }
 
+  useEffect(() => {
+    scrollDown();
+  }, [messages]);
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     sendNewMessage(
@@ -59,7 +68,7 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
   };
   return (
     <Panel>
-      <Body>
+      <Body ref={body}>
         {messages.map((msg) => (
           <TextMessage
             message={msg.text}

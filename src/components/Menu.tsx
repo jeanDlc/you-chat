@@ -11,7 +11,7 @@ const MenuOptions = styled.section`
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 0.5rem;
-  z-index: 2;
+  z-index: -1;
   opacity: 0;
   transition: all 0.3s ease-out;
 `;
@@ -28,10 +28,9 @@ const Menu: FC<MenuProps> = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const menu = useRef<HTMLElement>(null);
   useEffect(() => {
-    if (!menu.current) {
-      return;
-    }
+    if (!menu.current) return;
     menu.current.style.opacity = isMenuActive ? "1" : "0";
+    menu.current.style.zIndex = isMenuActive ? "2" : "-1";
   }, [isMenuActive]);
   function toogleMenu() {
     setIsMenuActive(!isMenuActive);

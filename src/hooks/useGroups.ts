@@ -15,11 +15,15 @@ export const useGroups = () => {
     if (!isUserActive) return;
     //listen changes in the chat
     const unsubscribe = onSnapshot(qChat, (querySnapshot) => {
+      const groupsList: IGroup[] = [];
       querySnapshot.forEach((doc) => {
+        console.log(doc.data());
         const group = doc.data() as IGroup;
+
         group.id = doc.id;
-        setGroups([...groups, group]);
+        groupsList.push(group);
       });
+      setGroups(groupsList);
     });
     return () => unsubscribe();
   }, [isUserActive]);

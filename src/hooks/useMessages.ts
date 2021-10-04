@@ -33,6 +33,7 @@ export const useMessages = (idChat: string) => {
     //create a new message
     if (msg.text.trim() === "") return;
     try {
+      //update messages
       await updateDoc(doc(db, collectionName, idChat), {
         messages: arrayUnion(msg),
       });

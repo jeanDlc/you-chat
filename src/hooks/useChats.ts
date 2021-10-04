@@ -15,11 +15,13 @@ export const useChats = () => {
     if (!isUserActive) return;
     //listen changes in the chat
     const unsubscribe = onSnapshot(qChat, (querySnapshot) => {
+      const chatList: IChat[] = [];
       querySnapshot.forEach((doc) => {
         const chat = doc.data() as IChat;
         chat.id = doc.id;
-        setChats([...chats, chat]);
+        chatList.push(chat);
       });
+      setChats(chatList);
     });
     return () => unsubscribe();
   }, [isUserActive]);
