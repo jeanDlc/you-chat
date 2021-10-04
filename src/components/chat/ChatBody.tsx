@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, FormEventHandler, useState } from "react";
 import TextMessage from "../TextMessage";
 import styled from "styled-components";
 import { useMessages } from "../../hooks/useMessages";
+
 import { useStore } from "../../hooks/useStore";
+import { Timestamp } from "@firebase/firestore";
 
 interface ChatBodyProps {}
 const Body = styled.main`
@@ -37,9 +39,24 @@ const Footer = styled.footer`
 `;
 
 const ChatBody: FC<ChatBodyProps> = ({}) => {
-  const { messages } = useMessages("wjcJaSuMFbWMky01k17U");
+  const idChat = "wjcJaSuMFbWMky01k17U";
+  const { messages, sendNewMessage } = useMessages(idChat);
+  const [text, setText] = useState<string>("");
   const { user } = useStore();
 
+  const handleSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
+    sendNewMessage(
+      {
+        idUser: user.id,
+        name: user.nickName,
+        text,
+        timestamp: Timestamp.fromDate(new Date()),
+      },
+      idChat
+    );
+    setText("");
+  };
   return (
     <Panel>
       <Body>
@@ -49,12 +66,19 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
             name={msg.name}
             mine={user.id === msg.idUser}
             timestamp={msg.timestamp}
-            key={msg.idUser + msg.timestamp.toDate().getDate()}
+            key={msg.idUser + msg.timestamp.toDate().getTime()}
           />
         ))}
       </Body>
       <Footer>
-        <input type="text" placeholder="Escribe algo..." />
+        <form onSubmit={handleSubmit}>
+          <input
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            type="text"
+            placeholder="Escribe algo..."
+          />
+        </form>
       </Footer>
     </Panel>
   );
