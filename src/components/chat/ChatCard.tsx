@@ -1,3 +1,4 @@
+import { Timestamp } from "@firebase/firestore";
 import { FC } from "react";
 import styled from "styled-components";
 import { myTheme } from "../../styles/my-theme";
@@ -5,7 +6,11 @@ import ImgUser from "../ImgUser";
 const {
   colors: { gray2 },
 } = myTheme;
-interface ChatCardProps {}
+interface ChatCardProps {
+  name: string;
+  lastMessage: string;
+  timestamp: Timestamp;
+}
 const Card = styled.section`
   padding: 1rem;
   background-color: white;
@@ -31,14 +36,15 @@ const Time = styled.p`
   opacity: 0.7;
   font-size: 0.7rem;
 `;
-const ChatCard: FC<ChatCardProps> = () => {
+const ChatCard: FC<ChatCardProps> = ({ lastMessage, name, timestamp }) => {
+  const date = timestamp.toDate().toLocaleDateString();
   return (
     <Card>
       <ImgUser />
       <div>
-        <NameUser>Pepe Luna</NameUser>
-        <Conversation>Y de eso te estaba hablando...</Conversation>
-        <Time>7 de junio de 2019</Time>
+        <NameUser> {name} </NameUser>
+        <Conversation>{lastMessage} </Conversation>
+        <Time>{date}</Time>
       </div>
     </Card>
   );

@@ -1,11 +1,13 @@
+import { Timestamp } from "@firebase/firestore";
+
 export interface IChat {
   id: string;
   lastMessage: string;
-  timestamp: Date;
+  timestamp: Timestamp;
   members: string[];
 }
 export interface IGroup extends IChat {
-  title: string;
+  name: string;
   category: string;
 }
 export interface ICategory {
