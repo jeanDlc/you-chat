@@ -59,7 +59,7 @@ const ChatCard: FC<ChatCardProps> = ({
   return (
     <Card
       active={currentChat.id === idChat}
-      onClick={() => setCurrentChat(type, idChat)}
+      onClick={() => setCurrentChat({ id: idChat, type, name })}
     >
       <ImgUser />
       <div>

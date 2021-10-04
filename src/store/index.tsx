@@ -3,12 +3,14 @@ import { db } from "../firebase";
 import { IUser } from "../types";
 import { doc, getDoc } from "firebase/firestore";
 import { TypeChat } from "../types";
+type TypeCurrentChat = {
+  id: string;
+  type: TypeChat;
+  name: string;
+};
 interface State {
   user: IUser;
-  currentChat: {
-    id: string;
-    type: TypeChat;
-  };
+  currentChat: TypeCurrentChat;
 
   isUserActive: boolean;
 }
@@ -52,7 +54,7 @@ function reducer(state: State, action: UserAction): State {
 interface IContextProps {
   state: State;
   setUser: (user: IUser) => void;
-  setCurrentChat: (type: TypeChat, id: string) => void;
+  setCurrentChat: (currentChat: TypeCurrentChat) => void;
 }
 export const context = createContext({} as IContextProps);
 export const Store: FC = ({ children }) => {
@@ -60,6 +62,7 @@ export const Store: FC = ({ children }) => {
     currentChat: {
       id: "",
       type: "private",
+      name: "",
     },
     isUserActive: false,
     user: {
@@ -85,8 +88,11 @@ export const Store: FC = ({ children }) => {
   function setUser(user: IUser) {
     dispatch({ type: ActionKind.SET_USER, payload: user });
   }
-  function setCurrentChat(type: TypeChat, id: string) {
-    dispatch({ type: ActionKind.SET_CURRENT_CHAT, payload: { type, id } });
+  function setCurrentChat(currentChat: TypeCurrentChat) {
+    dispatch({
+      type: ActionKind.SET_CURRENT_CHAT,
+      payload: currentChat,
+    });
   }
   return (
     <context.Provider value={{ setUser, state, setCurrentChat }}>
