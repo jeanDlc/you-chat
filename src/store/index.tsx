@@ -1,4 +1,4 @@
-import { useReducer, useEffect, createContext, FC } from "react";
+import { useReducer, createContext, FC } from "react";
 import { db } from "../firebase";
 import { IUser } from "../types";
 import { doc, getDoc } from "firebase/firestore";

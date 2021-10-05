@@ -1,5 +1,5 @@
 import { Timestamp } from "@firebase/firestore";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { myTheme } from "../../styles/my-theme";
 import ImgUser from "../ImgUser";

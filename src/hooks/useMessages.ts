@@ -1,11 +1,17 @@
 import { useStore } from "./useStore";
 import { useState, useEffect } from "react";
-import { onSnapshot, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  onSnapshot,
+  arrayUnion,
+  doc,
+  updateDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { IMessage } from "../types";
 import { db } from "../firebase";
 export const useMessages = (idChat: string) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const { isUserActive } = useStore();
+  const { isUserActive, currentChat } = useStore();
   const collectionName = "messages";
   useEffect(() => {
     if (!isUserActive || idChat === "") return;
@@ -33,6 +39,12 @@ export const useMessages = (idChat: string) => {
       //update messages
       await updateDoc(doc(db, collectionName, idChat), {
         messages: arrayUnion(msg),
+      });
+      //update last message of chat or group collection
+      const col = currentChat.type === "group" ? "group" : "chats";
+      await updateDoc(doc(db, col, idChat), {
+        lastMessage: msg.text,
+        timestamp: Timestamp.fromDate(new Date()),
       });
     } catch (error) {
       console.log(error, "error in send");

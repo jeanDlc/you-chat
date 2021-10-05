@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { myTheme } from "./my-theme";
-const {
-  colors: { purple, pDark, pLight },
-} = myTheme;
+
 export const ButtonBase = styled.button`
   padding: 1rem;
   text-transform: uppercase;
