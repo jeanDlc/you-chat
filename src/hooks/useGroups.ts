@@ -17,7 +17,6 @@ export const useGroups = () => {
     const unsubscribe = onSnapshot(qChat, (querySnapshot) => {
       const groupsList: IGroup[] = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
         const group = doc.data() as IGroup;
 
         group.id = doc.id;

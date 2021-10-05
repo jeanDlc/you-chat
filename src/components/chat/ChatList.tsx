@@ -9,19 +9,6 @@ const List = styled.div`
   max-height: 100%;
   overflow: scroll;
   overflow-x: unset;
-  &::-webkit-scrollbar {
-    width: 0.4rem;
-  }
-
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #929292;
-    outline: 1px solid #cecece;
-    border-radius: 2rem;
-  }
 `;
 interface ChatListProps {}
 

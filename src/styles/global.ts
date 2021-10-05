@@ -17,7 +17,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   color: #212121;
   }
-  input{
+  input[type=text]{
     padding: .7rem 1rem;
     border-radius: 0.5rem;
     appearance: none;
@@ -36,5 +36,19 @@ html {
   button{
     border: none;
     cursor: pointer;
+    
+  }
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #929292;
+    outline: 1px solid #cecece;
+    border-radius: 2rem;
   }
 `;

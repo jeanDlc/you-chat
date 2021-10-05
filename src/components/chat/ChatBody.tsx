@@ -13,19 +13,6 @@ const Body = styled.main`
   background-color: #f0efef;
   overflow: scroll;
   overflow-x: hidden;
-  &::-webkit-scrollbar {
-    width: 0.4rem;
-  }
-
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #929292;
-    outline: 1px solid #cecece;
-    border-radius: 2rem;
-  }
 `;
 
 const Panel = styled.div`
@@ -84,6 +71,7 @@ const ChatBody: FC<ChatBodyProps> = ({}) => {
           <input
             onChange={(e) => setText(e.target.value)}
             value={text}
+            type="text"
             placeholder="Escribe algo..."
           />
         </form>

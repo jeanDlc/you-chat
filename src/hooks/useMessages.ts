@@ -17,11 +17,11 @@ export const useMessages = (idChat: string) => {
       (doc) => {
         //const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const listMessages = doc.data()?.messages as IMessage[];
-        console.log("messages", doc.data());
+
         listMessages && setMessages(listMessages);
       },
       (onerror = () => {
-        console.log("error puess");
+        console.log("error");
       })
     );
     return () => unsub();

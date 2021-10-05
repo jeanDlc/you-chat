@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 import Menu from "../Menu";
-
+import Searcher from "../Searcher";
 interface ChatContainerProps {}
 
 const Grid = styled.div`
@@ -30,7 +30,7 @@ const ChatContainer: FC<ChatContainerProps> = () => {
         <MenuContainer style={{ background: "#e1e1e1" }}>
           <Menu />
           <div style={{ flex: 1 }}>
-            <input type="text" placeholder="buscador..." />
+            <Searcher />
           </div>
         </MenuContainer>
         <ChatHeader />

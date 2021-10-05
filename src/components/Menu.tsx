@@ -1,8 +1,11 @@
 import { FC, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import hamburgerSvg from "../assets/hamburger.svg";
+import NewGroupForm from "../NewGroupForm";
 interface MenuProps {}
-const MenuBtn = styled.button``;
+const MenuBtn = styled.button`
+  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.2);
+`;
 const MenuOptions = styled.section`
   position: absolute;
   top: 2rem;
@@ -24,8 +27,17 @@ const Option = styled.button`
     background-color: #f1f1f1;
   }
 `;
+const FormContainer = styled.div`
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
+  z-index: 3;
+`;
 const Menu: FC<MenuProps> = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
   const menu = useRef<HTMLElement>(null);
   useEffect(() => {
     if (!menu.current) return;
@@ -36,16 +48,28 @@ const Menu: FC<MenuProps> = () => {
     setIsMenuActive(!isMenuActive);
   }
   return (
-    <div style={{ position: "relative" }}>
-      <MenuBtn onClick={toogleMenu}>
-        <img src={hamburgerSvg} alt="menu" />
-      </MenuBtn>
-      <MenuOptions ref={menu}>
-        <Option>Nuevo grupo</Option>
-        <Option>Todos los usuarios</Option>
-        <Option>Todos los grupos</Option>
-      </MenuOptions>
-    </div>
+    <>
+      <div style={{ position: "relative" }}>
+        <MenuBtn onClick={toogleMenu}>
+          <img src={hamburgerSvg} alt="menu" />
+        </MenuBtn>
+        <MenuOptions ref={menu}>
+          <Option
+            onClick={() => {
+              toogleMenu();
+              setDisplayForm(true);
+            }}
+          >
+            Nuevo grupo
+          </Option>
+        </MenuOptions>
+      </div>
+      {displayForm && (
+        <FormContainer>
+          <NewGroupForm hideElement={setDisplayForm} />
+        </FormContainer>
+      )}
+    </>
   );
 };
 
