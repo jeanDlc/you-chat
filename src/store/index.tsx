@@ -55,6 +55,7 @@ interface IContextProps {
   state: State;
   setUser: (user: IUser) => void;
   setCurrentChat: (currentChat: TypeCurrentChat) => void;
+  logUser: (id: string) => void;
 }
 export const context = createContext({} as IContextProps);
 export const Store: FC = ({ children }) => {
@@ -72,19 +73,16 @@ export const Store: FC = ({ children }) => {
     },
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    const getUser = async () => {
-      const id = "noob-master";
-      const userRef = doc(db, "users", id);
-      const docSnap = await getDoc(userRef);
-      if (docSnap.exists()) {
-        const user = docSnap.data() as IUser;
-        user.id = docSnap.id;
-        setUser(user);
-      }
-    };
-    getUser();
-  }, []);
+
+  const logUser = async (id: string) => {
+    const userRef = doc(db, "users", id);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      const user = docSnap.data() as IUser;
+      user.id = docSnap.id;
+      setUser(user);
+    }
+  };
   function setUser(user: IUser) {
     dispatch({ type: ActionKind.SET_USER, payload: user });
   }
@@ -95,7 +93,7 @@ export const Store: FC = ({ children }) => {
     });
   }
   return (
-    <context.Provider value={{ setUser, state, setCurrentChat }}>
+    <context.Provider value={{ setUser, state, setCurrentChat, logUser }}>
       {children}
     </context.Provider>
   );

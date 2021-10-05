@@ -1,13 +1,13 @@
 import { GlobalStyle } from "./styles/global";
 import { Container } from "./styles/utils";
-import ChatContainer from "./components/chat/ChatContainer";
+import Navigation from "./components/Navigation";
 import { Store } from "./store";
 function App() {
   return (
     <Container>
       <GlobalStyle />
       <Store>
-        <ChatContainer />
+        <Navigation />
       </Store>
     </Container>
   );

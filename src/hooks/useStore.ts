@@ -4,6 +4,7 @@ export const useStore = () => {
   const {
     setUser,
     setCurrentChat,
+    logUser,
     state: { user, isUserActive, currentChat },
   } = useContext(context);
   return {
@@ -12,5 +13,6 @@ export const useStore = () => {
     isUserActive,
     currentChat,
     setCurrentChat,
+    logUser,
   };
 };
