@@ -3,7 +3,7 @@ import { useStore } from "../hooks/useStore";
 import { SmallContainer } from "../styles/utils";
 import styled from "styled-components";
 import { ButtonMain } from "../styles/utils";
-
+import logo from "../assets/favicon.svg";
 const Label = styled.label`
   margin-bottom: 1rem;
   display: inline-block;
@@ -15,19 +15,22 @@ const Main = styled.main`
   justify-content: center;
   height: 80vh;
 `;
-
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+`;
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
 const Form = styled.form`
   width: 100%;
   padding: 1.5rem;
-  & input {
-    border: 1px solid transparent;
-  }
-  & input:focus {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-  }
   & h1 {
     margin: 0;
-    margin-bottom: 2.5rem;
     text-align: center;
     text-transform: uppercase;
   }
@@ -44,7 +47,12 @@ const Login: FC = () => {
     <SmallContainer>
       <Main>
         <Form onSubmit={handleSubmit}>
-          <h1>login</h1>
+          <HeaderContainer>
+            <Header>
+              <img src={logo} alt="youchat" draggable={false} />
+              <h1>login</h1>
+            </Header>
+          </HeaderContainer>
           <div style={{ marginBottom: 20 }}>
             <Label htmlFor="id-user">Tu ID</Label>
             <input

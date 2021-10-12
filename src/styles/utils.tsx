@@ -26,7 +26,7 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 export const SmallContainer = styled.div`
-  max-width: 35rem;
+  max-width: 30rem;
   width: 95%;
   margin: 0 auto;
 `;
