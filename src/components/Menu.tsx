@@ -27,14 +27,6 @@ const Option = styled.button`
     background-color: #f1f1f1;
   }
 `;
-const FormContainer = styled.div`
-  position: absolute;
-  top: 5rem;
-  left: 50%;
-  width: 500px;
-  margin-left: -250px;
-  z-index: 3;
-`;
 const Menu: FC<MenuProps> = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
@@ -64,11 +56,7 @@ const Menu: FC<MenuProps> = () => {
           </Option>
         </MenuOptions>
       </div>
-      {displayForm && (
-        <FormContainer>
-          <NewGroupForm hideElement={setDisplayForm} />
-        </FormContainer>
-      )}
+      {displayForm && <NewGroupForm show={setDisplayForm} />}
     </>
   );
 };

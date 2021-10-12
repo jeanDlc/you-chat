@@ -2,11 +2,8 @@ import { FC, FormEventHandler, useState } from "react";
 import { useStore } from "../hooks/useStore";
 import { SmallContainer } from "../styles/utils";
 import styled from "styled-components";
-import { myTheme } from "../styles/my-theme";
-import { ButtonBase } from "../styles/utils";
-const {
-  colors: { purple },
-} = myTheme;
+import { ButtonMain } from "../styles/utils";
+
 const Label = styled.label`
   margin-bottom: 1rem;
   display: inline-block;
@@ -18,18 +15,7 @@ const Main = styled.main`
   justify-content: center;
   height: 80vh;
 `;
-const Button = styled(ButtonBase)`
-  background-color: ${purple};
-  margin-top: 2rem;
-  color: white;
-  transition: background 0.2s ease-out;
-  border: 1.5px solid transparent;
-  &:hover {
-    border: 1.5px solid ${purple};
-    background-color: transparent;
-    color: ${purple};
-  }
-`;
+
 const Form = styled.form`
   width: 100%;
   padding: 1.5rem;
@@ -37,7 +23,7 @@ const Form = styled.form`
     border: 1px solid transparent;
   }
   & input:focus {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.15);
   }
   & h1 {
     margin: 0;
@@ -59,14 +45,16 @@ const Login: FC = () => {
       <Main>
         <Form onSubmit={handleSubmit}>
           <h1>login</h1>
-          <Label htmlFor="id-user">Tu ID</Label>
-          <input
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            type="text"
-            placeholder="Ingresa tu ID"
-          />
-          <Button type="submit">Ingresar</Button>
+          <div style={{ marginBottom: 20 }}>
+            <Label htmlFor="id-user">Tu ID</Label>
+            <input
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              type="text"
+              placeholder="Ingresa tu ID"
+            />
+          </div>
+          <ButtonMain type="submit">Ingresar</ButtonMain>
         </Form>
       </Main>
     </SmallContainer>

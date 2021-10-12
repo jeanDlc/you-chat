@@ -23,8 +23,11 @@ export const useMessages = (idChat: string) => {
       (doc) => {
         //const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const listMessages = doc.data()?.messages as IMessage[];
-
-        listMessages && setMessages(listMessages);
+        if (listMessages) {
+          setMessages(listMessages);
+        } else {
+          setMessages([]);
+        }
       },
       (onerror = () => {
         console.log("error");
